@@ -59,7 +59,7 @@ const BookingPage = () => {
 
 	return (
 		<>
-			<Box maxWidth={'lg'} sx={{ justifyContent: 'center', m: 4 }}>
+			<Box sx={{ justifyContent: 'center', m: 4 }}>
 				<Container sx={{ justifyContent: 'center' }}>
 					<Container>
 						<Typography variant="h3" sx={{ textAlign: 'center' }}>
