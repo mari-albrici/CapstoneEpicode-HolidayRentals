@@ -1,5 +1,5 @@
 import { Masonry } from '@mui/lab';
-import { Box, Button, Container, Divider, Typography } from '@mui/material';
+import { Box, Button, Divider, Typography } from '@mui/material';
 import GoogleMaps from './GoogleMaps';
 import lovereUno from '../assets/Filler/Lovere.jpeg';
 import lovereDue from '../assets/Filler/Lovere2.jpeg';
@@ -127,7 +127,7 @@ const HomePage = () => {
 				</Typography>
 			</Box>
 
-			<Box sx={{ margin: 5, textAlign: 'center' }}>
+			<Box sx={{ width: '100%' }}>
 				<GoogleMaps />
 			</Box>
 
