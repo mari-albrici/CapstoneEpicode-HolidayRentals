@@ -12,6 +12,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class UserService {
 
@@ -41,6 +43,15 @@ public class UserService {
     public User findByEmail(String email) throws NotFoundException {
         return userRepo.findById(email)
                 .orElseThrow(() -> new NotFoundException("User not found"));
+    }
+
+    public User findUserByEmail(String email) throws NotFoundException {
+        Optional<User> userOptional = userRepo.findById(email);
+        if (userOptional.isPresent()) {
+            return userOptional.get();
+        } else {
+            throw new NotFoundException("User not found");
+        }
     }
 
     public User findByEmailAndUpdate(String email, UserPayload g)

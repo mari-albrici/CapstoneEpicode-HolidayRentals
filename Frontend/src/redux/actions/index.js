@@ -19,6 +19,26 @@ const saveBookingEndpoint = 'http://localhost:8080/bookings';
 
 const getCalendlyApi = 'https://api.calendly.com/activity_log_entries';
 
+// GOOGLE AUTHENTICATION ACTION
+
+export const googleLogin = () => {
+	return async (dispatch) => {
+		try {
+			const response = await fetch('http://localhost:8080/google/authorization-url', {
+				method: 'GET',
+			});
+			const data = await response.text();
+			if (response.ok) {
+				window.location.href = data;
+			}
+		} catch (error) {
+			console.log(error);
+		}
+	};
+};
+
+// PROPIARTY APIS
+
 export const login = (formData, navigate) => {
 	return async (dispatch) => {
 		try {
@@ -291,6 +311,28 @@ export const saveBooking = (formData, navigate) => {
 			}
 		} catch (error) {
 			console.log(error);
+		}
+	};
+};
+
+export const deleteBooking = (bookingId) => {
+	return async (dispatch, getState) => {
+		try {
+			const token = getState().loginToken.token;
+			const response = await fetch(getAllBookings + '/' + bookingId, {
+				method: 'DELETE',
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			});
+			const bookings = await response.json();
+			if (response.ok) {
+				console.log(bookings);
+			} else {
+				console.log('Errore nella richiesta');
+			}
+		} catch (error) {
+			console.log(error + ' - ERRORE NEL CATCH');
 		}
 	};
 };

@@ -1,8 +1,8 @@
-import { Button, Container, FormGroup, FormLabel, Input, Typography } from '@mui/material';
+import { Box, Button, Container, FormGroup, FormLabel, Input, Typography } from '@mui/material';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { login } from '../redux/actions';
+import { googleLogin, login } from '../redux/actions';
 
 const LoginPage = () => {
 	const [formData, setFormData] = useState({
@@ -30,8 +30,12 @@ const LoginPage = () => {
 		}
 	};
 
+	const handleGoogleLogin = async () => {
+		dispatch(googleLogin(navigate));
+	};
+
 	return (
-		<Container maxWidth={'md'} sx={{ justifyContent: 'center' }}>
+		<Container maxWidth={'md'} sx={{ justifyContent: 'center', paddingBottom: 5 }}>
 			<Container sx={{ textAlign: 'center' }}>
 				<h2>Login</h2>
 			</Container>
@@ -72,6 +76,11 @@ const LoginPage = () => {
 						</Typography>
 					</Container>
 				</form>
+				<Box sx={{ display: 'flex', justifyContent: 'center' }}>
+					<Button type="submit" variant="contained" onClick={handleGoogleLogin}>
+						Login with Google
+					</Button>
+				</Box>
 			</Container>
 		</Container>
 	);

@@ -30,7 +30,7 @@ const GoogleMaps = () => {
 		});
 	}, []);
 
-	return <Box ref={mapContainerRef} maxWidth="xl" sx={{ height: '600px' }}></Box>;
+	return <Box ref={mapContainerRef} maxWidth="xl" sx={{ height: '600px', display: 'flex', justifyContent: 'center', margin: 5 }}></Box>;
 };
 
 export default GoogleMaps;

@@ -15,6 +15,7 @@ import BookingPage from './components/BookingPage';
 import AdminNavigation from './components/AdminNavigation';
 import UnitsPage from './components/UnitsPage';
 import ThankyouPage from './components/ThankyouPage';
+import GoogleCallback from './components/GoogleCallback';
 
 const theme = createTheme({
 	palette: {
@@ -59,7 +60,13 @@ const App = () => {
 
 						{isAuthenticated && hasRole === 'guest' && <Route path="/me" element={<GuestProfile />} />}
 
-						{isAuthenticated && hasRole === 'admin' && <Route path="/admin" element={<AdminNavigation />} />}
+						{isAuthenticated && hasRole === 'admin' ? (
+							<Route path="/admin" element={<AdminNavigation />} />
+						) : (
+							<Route path="/not-authorized" element={<NotAuthorizedPage />} />
+						)}
+
+						<Route path="/google/callback" element={<GoogleCallback />} />
 
 						<Route path="/lovere" element={<LocationPage />} />
 						<Route path="/units" element={<UnitsPage />} />

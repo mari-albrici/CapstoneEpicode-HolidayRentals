@@ -13,7 +13,7 @@ const ThankyouPage = () => {
 				</Typography>
 			</Box>
 			<Box sx={{ textAlign: 'center', padding: 3 }}>
-				<Button variant="contained" color="info" sx={{ paddingInline: 3 }} href="thankyou">
+				<Button variant="contained" color="info" sx={{ paddingInline: 3 }} href="/home">
 					HOME
 				</Button>
 			</Box>

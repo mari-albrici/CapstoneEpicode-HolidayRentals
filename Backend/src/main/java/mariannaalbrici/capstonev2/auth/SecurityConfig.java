@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -35,7 +36,19 @@ public class SecurityConfig {
 		/* AUTHENTICATION ENDPOINT */
 
 		http.authorizeHttpRequests(auth ->
-				auth.requestMatchers("/auth/**").permitAll());
+				auth.requestMatchers("/auth/**", "/login/**").permitAll());
+
+		/* GOOGLE AUTHENTICATION */
+		http
+				.authorizeHttpRequests(auth -> {
+					auth.requestMatchers("/").permitAll();
+					auth.requestMatchers("/google/").permitAll();
+					auth.requestMatchers("/google/**").permitAll();
+					auth.requestMatchers("/google/callback").permitAll();
+					auth.requestMatchers(HttpMethod.POST, "/google/callback/").permitAll();
+				})
+				.oauth2Login(Customizer.withDefaults())
+				.formLogin(Customizer.withDefaults());
 
 
 		/* BOOKINGS ENDPOINTS */
@@ -105,7 +118,7 @@ public class SecurityConfig {
 
 		http.addFilterBefore(corsFilter, UsernamePasswordAuthenticationFilter.class);
 
-		http.addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+		http.addFilterBefore(jwtAuthFilter, CorsFilter.class);
 
 		http.addFilterBefore(exceptionHandlerFilter, JWTAuthFilter.class);
 

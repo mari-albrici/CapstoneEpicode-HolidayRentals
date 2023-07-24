@@ -1,4 +1,7 @@
 import { Box, Button, Container, Typography } from '@mui/material';
+import GitHubIcon from '@mui/icons-material/GitHub';
+import InstagramIcon from '@mui/icons-material/Instagram';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
 
 const Footer = () => {
 	return (
@@ -22,10 +25,18 @@ const Footer = () => {
 						justifyContent: 'space-between',
 					}}
 				>
-					<Typography sx={{ color: 'info.main', textAlign: 'center' }}>Casa sul Lago - All rights reserved to Marianna Albrici</Typography>
-					<Button variant="outlined" color="info" href="admin">
-						<Typography>Admin</Typography>
-					</Button>
+					<Typography sx={{ color: 'info.main', textAlign: 'center' }}>
+						Casa sul Lago - All rights reserved to Marianna Albrici
+						<Button variant="text" href="https://github.com/mari-albrici" color="secondary">
+							<GitHubIcon />
+						</Button>
+						<Button variant="text" href="https://www.instagram.com/marialbrici/" color="secondary">
+							<InstagramIcon />
+						</Button>
+						<Button variant="text" href="https://www.linkedin.com/in/marianna-albrici/" color="secondary">
+							<LinkedInIcon />
+						</Button>
+					</Typography>
 				</Container>
 			</Box>
 		</>
