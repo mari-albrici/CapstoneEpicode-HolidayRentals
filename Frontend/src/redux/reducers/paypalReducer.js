@@ -1,8 +1,9 @@
-import { SET_BALANCE, SET_PAYMENT_LIST } from '../actions';
+import { SET_ACCESS_TOKEN, SET_BALANCE, SET_PAYMENT_LIST } from '../actions';
 
 const initialState = {
 	balance: null,
 	paymentList: [],
+	accessToken: '',
 };
 
 const paypalReducer = (state = initialState, action) => {
@@ -16,6 +17,11 @@ const paypalReducer = (state = initialState, action) => {
 			return {
 				...state,
 				paymentList: action.payload,
+			};
+		case SET_ACCESS_TOKEN:
+			return {
+				...state,
+				accessToken: action.payload,
 			};
 		default:
 			return state;

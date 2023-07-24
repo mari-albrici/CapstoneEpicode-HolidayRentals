@@ -2,16 +2,21 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getInvoices } from '../redux/actions';
+import { getAccessToken, getInvoices } from '../redux/actions';
 import { Box, Button, Grid, Typography } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 import NewPaymentDialog from './NewPaymentDialog';
 
 const AdminPayments = () => {
-	const paymentList = useSelector((state) => state.paypalReducer.paymentList);
 	const dispatch = useDispatch();
+	const paymentList = useSelector((state) => state.paypalReducer.paymentList);
 
-	console.log(paymentList);
+	useEffect(() => {
+		dispatch(getAccessToken());
+		if (paymentList != null) {
+			dispatch(getInvoices());
+		}
+	}, [dispatch, paymentList]);
 
 	const [open, setOpen] = useState(false);
 
@@ -39,10 +44,6 @@ const AdminPayments = () => {
 		{ field: 'col3', headerName: 'Totale', width: 300 },
 		{ field: 'col4', headerName: 'Data fattura', width: 300 },
 	];
-
-	useEffect(() => {
-		dispatch(getInvoices());
-	}, [dispatch]);
 
 	const [paginationModel, setPaginationModel] = useState({
 		pageSize: 10,

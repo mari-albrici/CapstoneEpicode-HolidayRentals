@@ -23,10 +23,10 @@ const AdminBookingsPreview = () => {
 		: [];
 
 	const columns = [
-		{ field: 'id', headerName: 'Id prenotazione', width: 200 },
-		{ field: 'col1', headerName: 'Email', width: 200 },
-		{ field: 'col2', headerName: 'Unità', width: 180 },
-		{ field: 'col3', headerName: 'Check in', width: 180 },
+		{ field: 'id', headerName: 'Id prenotazione', width: 150 },
+		{ field: 'col1', headerName: 'Email', width: 150 },
+		{ field: 'col2', headerName: 'Unità', width: 150 },
+		{ field: 'col3', headerName: 'Check in', width: 150 },
 	];
 
 	const [paginationModel, setPaginationModel] = useState({

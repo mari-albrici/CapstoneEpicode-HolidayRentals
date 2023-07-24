@@ -105,7 +105,6 @@ export const getAccommodation = () => {
 	return async (dispatch, getState) => {
 		try {
 			const token = getState().loginToken.token;
-			console.log(token);
 			const response = await fetch(getAccommodationEndpoint, {
 				method: 'GET',
 				headers: {
@@ -114,7 +113,6 @@ export const getAccommodation = () => {
 			});
 			if (response.ok) {
 				const accommodations = await response.json();
-				console.log(accommodations.content);
 				dispatch({ type: SET_ACCOMMODATIONS, payload: accommodations.content });
 			} else {
 				console.log("Errore nella richiesta di ottenere l'utente");
@@ -127,8 +125,6 @@ export const getAccommodation = () => {
 
 export const editAccommodation = (formData, accommodationName) => {
 	return async (dispatch, getState) => {
-		console.log(formData);
-		console.log('ACCOMMODATION: ' + accommodationName);
 		try {
 			const token = getState().loginToken.token;
 			const response = await fetch(getAccommodationEndpoint + '/' + accommodationName, {
@@ -139,9 +135,8 @@ export const editAccommodation = (formData, accommodationName) => {
 				},
 				body: JSON.stringify(formData),
 			});
-			console.log(response);
 			const accommodations = await response.json();
-			console.log(accommodations);
+
 			if (response.ok) {
 				dispatch({ type: SET_ACCOMMODATIONS, payload: accommodations.content });
 			} else {
@@ -157,7 +152,6 @@ export const addAccommodation = (formData) => {
 	return async (dispatch, getState) => {
 		try {
 			const token = getState().loginToken.token;
-			console.log(token);
 			const response = await fetch(getAccommodationEndpoint, {
 				method: 'POST',
 				headers: {
@@ -204,9 +198,8 @@ export const editGuestProfile = (formData, navigate) => {
 	return async (dispatch, getState) => {
 		try {
 			const token = getState().loginToken.token;
-			console.log(token);
+
 			const email = getState().guestReducer.email;
-			console.log(email);
 
 			const response = await fetch(editGuestEndpoint + `?email=${email}`, {
 				method: 'PUT',
@@ -218,7 +211,6 @@ export const editGuestProfile = (formData, navigate) => {
 			});
 			const data = await response.json();
 			if (response.ok) {
-				console.log(data.accessToken);
 				dispatch({ type: SET_TOKEN, payload: data.accessToken });
 				dispatch({ type: SET_CURRENT_GUESTEMAIL, payload: formData.email });
 				navigate('/me');
@@ -235,7 +227,6 @@ export const getAllGuests = () => {
 	return async (dispatch, getState) => {
 		try {
 			const token = getState().loginToken.token;
-			console.log(token);
 
 			const response = await fetch(getAllGuestsEndpoint, {
 				method: 'GET',
@@ -245,8 +236,7 @@ export const getAllGuests = () => {
 			});
 			if (response.ok) {
 				const guests = await response.json();
-				console.log('GUESTS:', guests);
-				console.log('GUESTS CONTENT:', guests.content);
+
 				dispatch({ type: 'SET_ALL_GUESTS', payload: guests.content });
 			} else {
 				console.log('Errore nella richiesta - ALL GUESTS');
@@ -266,10 +256,8 @@ export const getAllBookings = (token) => {
 					Authorization: `Bearer ${token}`,
 				},
 			});
-			console.log(response);
 			const bookings = await response.json();
 			if (response.ok) {
-				console.log('BOOKINGS:', bookings.content);
 				dispatch({ type: 'SET_ALL_BOOKINGS', payload: bookings.content });
 			} else {
 				console.log('Error in request - ALL BOOKINGS');
@@ -293,7 +281,7 @@ export const saveBooking = (formData, navigate) => {
 				},
 				body: JSON.stringify(formData),
 			});
-			console.log(formData);
+
 			const data = await response.json();
 			if (response.ok) {
 				console.log(data);
@@ -333,29 +321,57 @@ export const getCalendly = () => {
 /* PAYPAL */
 export const SET_BALANCE = 'SET_BALANCE';
 export const SET_PAYMENT_LIST = 'SET_PAYMENT_LIST';
+export const SET_ACCESS_TOKEN = 'SET_ACCESS_TOKEN';
 
 const getInvoicesEndpoint = 'https://api-m.sandbox.paypal.com/v2/invoicing/invoices';
-// const getSingleInvoiceEndpoint = 'https://api-m.paypal.com/v2/invoicing/invoices/{invoice_id}';
+const accessEndpoint = 'https://api-m.sandbox.paypal.com/v1/oauth2/token';
 const postCreateInvoicesEndpoint = 'https:/api-m.sandbox.paypal.com/v2/invoicing/invoices';
-// const postSendInvoicesEndpoint = 'https://api-m.paypal.com/v2/invoicing/invoices/{invoice_id}/send';
-// const deleteInvoiceEndpoint = 'https://api-m.paypal.com/v2/invoicing/invoices/{invoice_id}';
 
-export const getInvoices = () => {
+export const getAccessToken = () => {
+	return async (dispatch) => {
+		try {
+			const clientId = 'AT3sbVzCrK2AjRPujTD2BYLox3iZ-7cSDPHmQseXFKeT5b7T7zxW1MmDdidDL-ztFWpM8Lp3TuHbflCq';
+			const clientSecret = 'EOURFVO50_zMBWjle6BEhhWZ_85kumOzTZ_Ezd4vRRKZaS9yNKaTyDfAiiP6nGXkUAISbOiaG2BSlZcm';
+			// Encode the client credentials in Base64
+			const base64Credentials = btoa(`${clientId}:${clientSecret}`);
+
+			const response = await fetch(accessEndpoint, {
+				method: 'POST',
+				headers: {
+					Authorization: `Basic ${base64Credentials}`, // Include Basic auth credentials in the Authorization header
+					'Content-Type': 'application/x-www-form-urlencoded', // Required for the "client_credentials" grant type
+				},
+				body: 'grant_type=client_credentials', // Set the grant type to "client_credentials"
+			});
+
+			const paypalToken = await response.json();
+			if (response.ok) {
+				dispatch({ type: SET_ACCESS_TOKEN, payload: paypalToken.access_token });
+				console.log('PAYPAL TOKEN: ' + paypalToken.access_token);
+			} else {
+				console.log('Error in request - PAYPAL ACCESS TOKEN');
+			}
+		} catch (error) {
+			console.log(error);
+		}
+	};
+};
+
+export const getInvoices = (accessToken) => {
 	return async (dispatch) => {
 		try {
 			const response = await fetch(getInvoicesEndpoint, {
 				method: 'GET',
 				headers: {
-					Authorization: `Bearer A21AAL3NoDbrlfuIXwmAPDIo6IThlac0OKtSmxrQLUSnkv8gMKLHd5UtzcrXfxAkrbCySUlYfSdB2uUyVOpS2AgB_AhV6I2dQ`,
+					Authorization: `Bearer ${accessToken}`,
 				},
 			});
 			const list = await response.json();
-			console.log(response);
 			if (response.ok) {
 				dispatch({ type: SET_PAYMENT_LIST, payload: list.items });
 				console.log(list.items);
 			} else {
-				console.log('Errore nella richiesta - PAYPAL');
+				console.log('Errore nella richiesta - PAYPAL GET INVOICES');
 			}
 		} catch (error) {
 			console.log(error);
@@ -364,12 +380,14 @@ export const getInvoices = () => {
 };
 
 export const postInvoice = (formData) => {
-	return async () => {
+	return async (dispatch, getState) => {
+		dispatch(getAccessToken);
 		try {
+			const accessToken = getState().payPalReducer.accessToken;
 			const response = await fetch(postCreateInvoicesEndpoint, {
 				method: 'POST',
 				headers: {
-					Authorization: `Bearer ${process.env.REACT_APP_PAYPAL_API_KEY}`,
+					Authorization: `Bearer ${accessToken}`,
 				},
 				body: JSON.stringify(formData),
 			});

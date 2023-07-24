@@ -1,4 +1,4 @@
-import { Button, Container, Dialog, DialogActions, DialogContent, DialogTitle, FormLabel, Input } from '@mui/material';
+import { Button, Container, Dialog, DialogContent, DialogTitle, FormLabel, Input } from '@mui/material';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -75,7 +75,7 @@ const NewPaymentDialog = (props) => {
 			{
 				name: 'Soggiorno - La Casa sul Lago',
 				description: '',
-				quantity: 3,
+				quantity: null,
 				unit_amount: {
 					currency_code: 'EUR',
 					value: 75.0,
@@ -124,8 +124,7 @@ const NewPaymentDialog = (props) => {
 		});
 	};
 
-	const addNewPaymentIntent = async (event) => {
-		event.preventDefault();
+	const addNewPaymentIntent = async () => {
 		try {
 			dispatch(postInvoice(formData, navigate));
 		} catch (error) {
@@ -154,7 +153,7 @@ const NewPaymentDialog = (props) => {
 						<Input required type="date" name="invoice_date" placeholder="Data fattura" value={formData.invoice_date} onChange={handleInputChange} />
 					</Container>
 					<Container className="form-group">
-						<FormLabel>Description:</FormLabel>
+						<FormLabel>Note:</FormLabel>
 						<Input
 							required
 							type="text"
@@ -168,14 +167,13 @@ const NewPaymentDialog = (props) => {
 						<FormLabel>Notti:</FormLabel>
 						<Input required type="number" name="quantity" placeholder="Numero notti" value={formData.items.quantity} onChange={handleInputChange} />
 					</Container>
-					<DialogActions>
-						<Button onClick={props.handleClose} variant="outlined" color="info">
-							Close
-						</Button>
-						<Button type="submit" variant="contained" color="success">
-							Save
-						</Button>
-					</DialogActions>
+
+					<Button onClick={props.handleClose} variant="outlined" color="info">
+						Close
+					</Button>
+					<Button type="submit" variant="contained" color="success" onClick={props.handleClose}>
+						Save
+					</Button>
 				</form>
 			</DialogContent>
 		</Dialog>
