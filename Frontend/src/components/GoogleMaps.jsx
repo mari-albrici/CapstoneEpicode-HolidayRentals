@@ -17,7 +17,7 @@ const GoogleMaps = () => {
 			const google = window.google;
 			if (mapContainerRef.current) {
 				const map = new google.maps.Map(mapContainerRef.current, {
-					zoom: 14,
+					zoom: 15,
 					center: myLatLng,
 				});
 
