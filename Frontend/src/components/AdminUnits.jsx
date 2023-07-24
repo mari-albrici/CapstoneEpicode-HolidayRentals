@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAccommodation } from '../redux/actions';
+import { deleteAccommodation, getAccommodation } from '../redux/actions';
 import { Box, Button, Typography } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 import UnitAddDialog from './UnitAddDialog';
@@ -34,6 +34,11 @@ const AdminUnits = () => {
 		setOpenEdit(true);
 	};
 
+	const handleClickDelete = (id) => {
+		dispatch(deleteAccommodation(id));
+		dispatch(getAccommodation(token));
+	};
+
 	const handleCloseEdit = () => {
 		setOpenEdit(false);
 	};
@@ -59,10 +64,20 @@ const AdminUnits = () => {
 		{
 			field: 'action',
 			headerName: '',
-			width: 250,
+			width: 150,
 			renderCell: (params) => (
 				<Button variant="contained" color="info" onClick={() => handleClickOpenEdit(params.row.id)}>
 					Modifica
+				</Button>
+			),
+		},
+		{
+			field: 'action2',
+			headerName: '',
+			width: 150,
+			renderCell: (params) => (
+				<Button variant="contained" color="warning" onClick={() => handleClickDelete(params.row.id)}>
+					Elimina
 				</Button>
 			),
 		},

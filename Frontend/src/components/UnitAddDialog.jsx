@@ -61,7 +61,7 @@ const UnitAddDialog = (props) => {
 						<Button onClick={props.handleClose} variant="outlined" color="info">
 							Close
 						</Button>
-						<Button type="submit" variant="outlined" color="info">
+						<Button type="submit" variant="outlined" color="info" onClick={props.handleClose}>
 							Save
 						</Button>
 					</DialogActions>

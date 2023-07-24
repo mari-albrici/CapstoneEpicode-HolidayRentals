@@ -1,4 +1,4 @@
-import { Button, Container, FormGroup, FormLabel, Input, Link } from '@mui/material';
+import { Button, Container, FormGroup, FormLabel, Input, Typography } from '@mui/material';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
@@ -60,23 +60,16 @@ const LoginPage = () => {
 						/>
 					</FormGroup>
 					<Container sx={{ justifyContent: 'center', textAlign: 'center', mt: 3 }}>
-						<Button type="submit" variant="outlined" color="success">
+						<Button type="submit" variant="outlined" color="info">
 							Login
 						</Button>
 						<hr />
-						<p className="mt-4">
+						<Typography sx={{ padding: 2 }}>
 							Don't have an account? <br />
-							<Link className="text-decoration-none fw-bold text-success" to="/signup">
-								Sign up
-							</Link>
-						</p>
-
-						<p className="mt-4">
-							Need an admin login? <br />
-							<Link className="text-decoration-none fw-bold" to="/adminLogin">
-								Admin Login
-							</Link>
-						</p>
+							<Button href="/signup" variant="outlined" color="info">
+								Sign Up
+							</Button>
+						</Typography>
 					</Container>
 				</form>
 			</Container>

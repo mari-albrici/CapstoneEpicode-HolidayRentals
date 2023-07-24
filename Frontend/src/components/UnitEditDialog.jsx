@@ -1,11 +1,11 @@
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { editAccommodation } from '../redux/actions';
+import { useDispatch, useSelector } from 'react-redux';
+import { editAccommodation, getAccommodation } from '../redux/actions';
 import { Button, Container, Dialog, DialogActions, DialogContent, DialogTitle, FormLabel, Input } from '@mui/material';
 
 const UnitEditDialog = (props) => {
 	const [formData, setFormData] = useState({
-		id: '',
+		id: props.id,
 		name: '',
 		address: '',
 		beds: '',
@@ -13,6 +13,7 @@ const UnitEditDialog = (props) => {
 	});
 
 	const dispatch = useDispatch();
+	const token = useSelector((state) => state.loginToken.token);
 
 	const handleInputChange = (event) => {
 		setFormData({
@@ -25,6 +26,7 @@ const UnitEditDialog = (props) => {
 		event.preventDefault();
 		try {
 			dispatch(editAccommodation(formData, props.id));
+			dispatch(getAccommodation(token));
 		} catch (error) {
 			console.log(error);
 		}
@@ -32,13 +34,9 @@ const UnitEditDialog = (props) => {
 
 	return (
 		<Dialog open={props.open} handleClose={props.handleClose}>
-			<DialogTitle>Aggiungi nuovo alloggio</DialogTitle>
+			<DialogTitle>Modifica alloggio</DialogTitle>
 			<DialogContent>
 				<form onSubmit={newUnitSubmit}>
-					<Container className="form-group">
-						<FormLabel>Id:</FormLabel>
-						<Input required type="number" name="id" placeholder="Id alloggio" value={formData.id} onChange={handleInputChange} />
-					</Container>
 					<Container className="form-group">
 						<FormLabel>Name:</FormLabel>
 						<Input required type="text" name="name" placeholder="Nome alloggio" value={formData.name} onChange={handleInputChange} />
@@ -59,7 +57,7 @@ const UnitEditDialog = (props) => {
 						<Button onClick={props.handleClose} variant="outlined" color="info">
 							Close
 						</Button>
-						<Button type="submit" variant="outlined" color="info">
+						<Button type="submit" variant="outlined" color="info" handleClose={props.handleClose}>
 							Save
 						</Button>
 					</DialogActions>

@@ -132,7 +132,7 @@ export const editAccommodation = (formData, accommodationName) => {
 		try {
 			const token = getState().loginToken.token;
 			const response = await fetch(getAccommodationEndpoint + '/' + accommodationName, {
-				method: 'POST',
+				method: 'PUT',
 				headers: {
 					'Content-Type': 'application/json',
 					Authorization: `Bearer ${token}`,
@@ -174,6 +174,28 @@ export const addAccommodation = (formData) => {
 			}
 		} catch (error) {
 			console.log(error);
+		}
+	};
+};
+
+export const deleteAccommodation = (accommodationName) => {
+	return async (dispatch, getState) => {
+		try {
+			const token = getState().loginToken.token;
+			const response = await fetch(getAccommodationEndpoint + '/' + accommodationName, {
+				method: 'DELETE',
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			});
+			const accommodations = await response.json();
+			if (response.ok) {
+				console.log(accommodations);
+			} else {
+				console.log('Errore nella richiesta');
+			}
+		} catch (error) {
+			console.log(error + ' - ERRORE NEL CATCH');
 		}
 	};
 };

@@ -75,7 +75,7 @@ public class SecurityConfig {
 				auth.requestMatchers(HttpMethod.POST,"/units").hasAuthority("admin"));
 
 		http.authorizeHttpRequests(auth ->
-				auth.requestMatchers(HttpMethod.DELETE,"/units").hasAuthority("admin"));
+				auth.requestMatchers(HttpMethod.DELETE,"/units/**").hasAuthority("admin"));
 
 		http.authorizeHttpRequests(auth ->
 				auth.requestMatchers(HttpMethod.PUT,"/units/**").hasAuthority("admin"));
