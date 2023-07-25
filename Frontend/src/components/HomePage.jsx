@@ -101,8 +101,17 @@ const HomePage = () => {
 				</Button>
 			</Box>
 
-			<Box sx={{ display: 'flex', justifyContent: 'center', m: 4 }}>
-				<Typography sx={{ textAlign: 'center', border: 2, borderColor: 'primary.main', lineHeight: '2rem', padding: 2, width: 1000 }}>
+			<Box sx={{ display: { md: 'flex', xs: 'none' }, justifyContent: 'center', m: 4 }}>
+				<Typography
+					sx={{
+						textAlign: 'center',
+						border: 2,
+						borderColor: 'primary.main',
+						lineHeight: '2rem',
+						padding: 2,
+						width: 1000,
+					}}
+				>
 					Cari viaggiatori, siamo entusiasti di darvi il benvenuto a Casa sul Lago! <br /> Queste pagine sono dedicate a offrirvi un'esperienza unica
 					di prenotazione dei nostri appartamenti vacanze a Lovere, uno dei gioielli nascosti, classificato come uno dei Borghi più belli d'Italia,
 					sulle rive pittoresche del Lago d'Iseo.
@@ -113,6 +122,40 @@ const HomePage = () => {
 					d'Iseo, nel cuore della regione Lombardia. Questa pittoresca città, ricca di storia e cultura, è circondata da maestose montagne e offrirà
 					ai visitatori un ambiente mozzafiato e rilassante durante tutto l'anno. <br />
 					<img src={lovereAltoDue} alt="Lovere dall'alto" width={500} />
+					<Divider sx={{ paddingTop: 2 }} />
+					Con le nostre proprietà a Casa sul Lago siamo orgogliosi di offrire sistemazioni selezionate con cura per garantire il massimo comfort e la
+					soddisfazione dei nostri ospiti. Ci teniamo particolarmente a far sentire a casa coloro che scelgono di soggiornare con noi, perchè non c`è
+					nulla che possa rendere una vacanza migliore se non sentirsi come a casa.
+					<Box sx={{ display: 'flex', justifyContent: 'center', m: 4 }}>
+						<Button variant="contained" color="primary" href="/book">
+							<Typography variant="h5" sx={{ color: 'info', paddingInline: 4 }}>
+								PRENOTA ORA
+							</Typography>
+						</Button>
+					</Box>
+				</Typography>
+			</Box>
+			<Box sx={{ display: { md: 'none', xs: 'flex' }, justifyContent: 'center', m: 4 }}>
+				<Typography
+					sx={{
+						textAlign: 'center',
+						border: 2,
+						borderColor: 'primary.main',
+						lineHeight: '2rem',
+						padding: 2,
+						width: 300,
+					}}
+				>
+					Cari viaggiatori, siamo entusiasti di darvi il benvenuto a Casa sul Lago! <br /> Queste pagine sono dedicate a offrirvi un'esperienza unica
+					di prenotazione dei nostri appartamenti vacanze a Lovere, uno dei gioielli nascosti, classificato come uno dei Borghi più belli d'Italia,
+					sulle rive pittoresche del Lago d'Iseo.
+					<img src={lovereAlto} alt="Lovere dall'alto" width={250} />
+					<Divider sx={{ paddingBottom: 2 }} />
+					Siamo qui per rendere i vostri sogni di vacanze realtà, fornendovi sistemazioni confortevoli e indimenticabili in questa splendida
+					destinazione. <br /> Esplorando Lovere scoprirete che è una località affascinante situata sulla sponda nord-occidentale del suggestivo Lago
+					d'Iseo, nel cuore della regione Lombardia. Questa pittoresca città, ricca di storia e cultura, è circondata da maestose montagne e offrirà
+					ai visitatori un ambiente mozzafiato e rilassante durante tutto l'anno. <br />
+					<img src={lovereAltoDue} alt="Lovere dall'alto" width={250} />
 					<Divider sx={{ paddingTop: 2 }} />
 					Con le nostre proprietà a Casa sul Lago siamo orgogliosi di offrire sistemazioni selezionate con cura per garantire il massimo comfort e la
 					soddisfazione dei nostri ospiti. Ci teniamo particolarmente a far sentire a casa coloro che scelgono di soggiornare con noi, perchè non c`è

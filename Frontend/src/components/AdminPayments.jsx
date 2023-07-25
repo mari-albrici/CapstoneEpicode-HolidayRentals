@@ -52,7 +52,7 @@ const AdminPayments = () => {
 
 	return (
 		<>
-			<div>
+			<Box>
 				<Typography variant="h2" sx={{ display: { xs: 'none', sm: 'flex' }, textAlign: 'center', paddingBottom: 2 }}>
 					Pagamenti
 				</Typography>
@@ -61,10 +61,15 @@ const AdminPayments = () => {
 				</Typography>
 				<Box>
 					<Grid container sx={{ justifyContent: 'spaceBetween', margin: 2 }}>
-						<Grid item sm={6}>
-							<Typography variant="h6">Saldo: €</Typography>
+						<Grid item md={10} xs={6}>
+							<Typography variant="h6">Saldo: 422,92€</Typography>
 						</Grid>
-						<Grid item sm={6}>
+						<Grid item md={2} xs={6} sx={{ display: { xs: 'flex', md: 'none' } }}>
+							<Button variant="contained" color="secondary" onClick={handleOpen} sx={{ padding: 0, marginLeft: 10 }}>
+								+
+							</Button>
+						</Grid>
+						<Grid item md={2} xs={6} sx={{ display: { xs: 'none', md: 'flex' } }}>
 							<Button variant="contained" color="secondary" onClick={handleOpen}>
 								Nuovo pagamento
 							</Button>
@@ -74,7 +79,7 @@ const AdminPayments = () => {
 				<Box sx={{ display: 'flex', justifyContent: 'center' }}>
 					<DataGrid rows={rows} columns={columns} paginationModel={paginationModel} onPaginationModelChange={setPaginationModel} />
 				</Box>
-			</div>
+			</Box>
 
 			<NewPaymentDialog open={open} handleClose={handleClose} />
 		</>

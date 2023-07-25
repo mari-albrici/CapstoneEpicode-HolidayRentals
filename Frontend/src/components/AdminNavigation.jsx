@@ -42,7 +42,7 @@ export default function AdminNavigation() {
 	};
 
 	return (
-		<Box sx={{ flexGrow: 1, bgcolor: 'background.paper', display: 'flex', height: 860 }}>
+		<Box sx={{ flexGrow: 1, bgcolor: 'background.paper', display: 'flex', height: 990 }}>
 			<Box sx={{ display: { xs: 'none', md: 'flex' } }}>
 				<Tabs
 					orientation="vertical"
